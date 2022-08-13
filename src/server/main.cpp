@@ -1,8 +1,24 @@
 #include"ChatServer.h"
+#include"ChatService.h"
+#include<signal.h>
+#include<sys/types.h>
+
+
+//  对于Server的ctrl + c异常退出
+    //  业务类应当负责重置一些状态和信息
+        //  比如sql表中用户是否在线的状态
+void sigIntHandelr(int sig)     //  ctrl + c SIG_INT
+{
+    ChatService::getInstance()->reset();
+    exit(0);
+}
 
 
 int main()
 {
+    //  捕捉信号
+    signal(SIGINT,sigIntHandelr);
+
     net::EventLoop loop;
     net::InetAddress addr("127.0.0.1",6666);
     ChatServer server(&loop,addr,"MyChatServer");

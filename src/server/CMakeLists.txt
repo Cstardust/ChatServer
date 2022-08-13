@@ -3,6 +3,7 @@
 
 aux_source_directory(./ SRC_LIST)           # 3. 源文件
 aux_source_directory(./db SRC_LIST)
+aux_source_directory(./model SRC_LIST)
 
 add_executable(ChatServer ${SRC_LIST})      # 1. 生成可执行文件
 

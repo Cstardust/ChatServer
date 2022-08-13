@@ -6,9 +6,12 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/shc/ChatServer/src/server/ChatServer.cpp" "/home/shc/ChatServer/build/src/server/CMakeFiles/ChatServer.dir/ChatServer.cpp.o"
   "/home/shc/ChatServer/src/server/ChatService.cpp" "/home/shc/ChatServer/build/src/server/CMakeFiles/ChatServer.dir/ChatService.cpp.o"
-  "/home/shc/ChatServer/src/server/UserModel.cpp" "/home/shc/ChatServer/build/src/server/CMakeFiles/ChatServer.dir/UserModel.cpp.o"
   "/home/shc/ChatServer/src/server/db/DB.cpp" "/home/shc/ChatServer/build/src/server/CMakeFiles/ChatServer.dir/db/DB.cpp.o"
   "/home/shc/ChatServer/src/server/main.cpp" "/home/shc/ChatServer/build/src/server/CMakeFiles/ChatServer.dir/main.cpp.o"
+  "/home/shc/ChatServer/src/server/model/FriendModel.cpp" "/home/shc/ChatServer/build/src/server/CMakeFiles/ChatServer.dir/model/FriendModel.cpp.o"
+  "/home/shc/ChatServer/src/server/model/GroupModel.cpp" "/home/shc/ChatServer/build/src/server/CMakeFiles/ChatServer.dir/model/GroupModel.cpp.o"
+  "/home/shc/ChatServer/src/server/model/OfflineMessageModel.cpp" "/home/shc/ChatServer/build/src/server/CMakeFiles/ChatServer.dir/model/OfflineMessageModel.cpp.o"
+  "/home/shc/ChatServer/src/server/model/UserModel.cpp" "/home/shc/ChatServer/build/src/server/CMakeFiles/ChatServer.dir/model/UserModel.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -18,6 +21,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../include/server"
   "/include/client"
   "../include/server/db"
+  "../include/server/model"
   "../thirdparty"
   )
 

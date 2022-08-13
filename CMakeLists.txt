@@ -11,6 +11,7 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_SOURCE_DIR}/include/server)
 include_directories(${PROJECT_SROUCE_DIR}/include/client)
 include_directories(${PROJECT_SOURCE_DIR}/include/server/db)
+include_directories(${PROJECT_SOURCE_DIR}/include/server/model)
 include_directories(${PROJECT_SOURCE_DIR}/thirdparty)
 
 # 添加子目录（进入到子目录的CMakeLists）

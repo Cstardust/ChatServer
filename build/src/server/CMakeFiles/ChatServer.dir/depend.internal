@@ -5,26 +5,61 @@ src/server/CMakeFiles/ChatServer.dir/ChatServer.cpp.o
  ../include/public.h
  ../include/server/ChatServer.h
  ../include/server/ChatService.h
- ../include/server/User.hpp
- ../include/server/UserModel.h
+ ../include/server/model/FriendModel.h
+ ../include/server/model/Group.hpp
+ ../include/server/model/GroupModel.h
+ ../include/server/model/GroupUser.h
+ ../include/server/model/OfflineMessageModel.h
+ ../include/server/model/User.hpp
+ ../include/server/model/UserModel.h
  ../thirdparty/json.hpp
  /home/shc/ChatServer/src/server/ChatServer.cpp
 src/server/CMakeFiles/ChatServer.dir/ChatService.cpp.o
  ../include/public.h
  ../include/server/ChatService.h
- ../include/server/User.hpp
- ../include/server/UserModel.h
+ ../include/server/model/FriendModel.h
+ ../include/server/model/Group.hpp
+ ../include/server/model/GroupModel.h
+ ../include/server/model/GroupUser.h
+ ../include/server/model/OfflineMessageModel.h
+ ../include/server/model/User.hpp
+ ../include/server/model/UserModel.h
  ../thirdparty/json.hpp
  /home/shc/ChatServer/src/server/ChatService.cpp
-src/server/CMakeFiles/ChatServer.dir/UserModel.cpp.o
- ../include/server/User.hpp
- ../include/server/UserModel.h
- ../include/server/db/DB.h
- /home/shc/ChatServer/src/server/UserModel.cpp
 src/server/CMakeFiles/ChatServer.dir/db/DB.cpp.o
  ../include/server/db/DB.h
  /home/shc/ChatServer/src/server/db/DB.cpp
 src/server/CMakeFiles/ChatServer.dir/main.cpp.o
+ ../include/public.h
  ../include/server/ChatServer.h
+ ../include/server/ChatService.h
+ ../include/server/model/FriendModel.h
+ ../include/server/model/Group.hpp
+ ../include/server/model/GroupModel.h
+ ../include/server/model/GroupUser.h
+ ../include/server/model/OfflineMessageModel.h
+ ../include/server/model/User.hpp
+ ../include/server/model/UserModel.h
  ../thirdparty/json.hpp
  /home/shc/ChatServer/src/server/main.cpp
+src/server/CMakeFiles/ChatServer.dir/model/FriendModel.cpp.o
+ ../include/server/db/DB.h
+ ../include/server/model/FriendModel.h
+ ../include/server/model/User.hpp
+ /home/shc/ChatServer/src/server/model/FriendModel.cpp
+src/server/CMakeFiles/ChatServer.dir/model/GroupModel.cpp.o
+ ../include/server/db/DB.h
+ ../include/server/model/Group.hpp
+ ../include/server/model/GroupModel.h
+ ../include/server/model/GroupUser.h
+ ../include/server/model/User.hpp
+ /home/shc/ChatServer/src/server/model/GroupModel.cpp
+src/server/CMakeFiles/ChatServer.dir/model/OfflineMessageModel.cpp.o
+ ../include/server/db/DB.h
+ ../include/server/model/OfflineMessageModel.h
+ /home/shc/ChatServer/src/server/model/OfflineMessageModel.cpp
+src/server/CMakeFiles/ChatServer.dir/model/UserModel.cpp.o
+ ../include/server/db/DB.h
+ ../include/server/model/User.hpp
+ ../include/server/model/UserModel.h
+ /home/shc/ChatServer/src/server/model/UserModel.cpp
