@@ -41,17 +41,17 @@ void ChatService::login(const net::TcpConnectionPtr &conn, json &js, Timestamp t
     string pwd = js["password"];
 
     User user = userModel_.query(id);
+    //  用户存在 && 密码正确
     if (user.getId() == id && user.getPwd() == pwd)
     {
-        //  用户存在 && 密码正确
+        //  该用户已登录 不可重复登录
         if (user.getState() == "online")
         {
-            //  该用户已登录 不可重复登录
             json res;
             res["msg_id"] = LGOIN_MSG_ACK;
             res["errno"] = 2;
             res["id"] = user.getId();
-            res["errmsg"] = "该账号已经登陆 请输入其他账号";
+            res["errmsg"] = "The account has already logged in ; Please enter another account";
 
             conn->send(res.dump());
         }
@@ -76,9 +76,12 @@ void ChatService::login(const net::TcpConnectionPtr &conn, json &js, Timestamp t
             res["id"] = id;
             res["name"] = user.getName();
                 //  发送离线信息
-            res["msg"] = OfflineMsgModel_.query(id);
+            res["offlinemsg"] = OfflineMsgModel_.query(id);
             
                 //  登录时，加载好友列表
+                    //  一个好友的信息存储为一个json 然后dump成string
+                    //  所有好友就是vector<string>
+                    //  json序列化vector<string> 发送json
             vector<User> friends = FriendModel_.query(id);
             vector<string> friends_list;
             for(User &usr : friends)
@@ -91,12 +94,51 @@ void ChatService::login(const net::TcpConnectionPtr &conn, json &js, Timestamp t
             }            
             res["friends"] = friends_list;
 
+
+            //  将每个group的信息存储成一个string
+                //  如何存储成string
+                    //  js["xxx"] = xxx;
+                    //  js["xxx"] = vector<string>对象...
+                    //  js["xxx"] = ..诸如此类    
+            //  然后把vector<string> vec 作为js的一个元素 ，即js["xxx"] = vec（之后再取出，取出的也是vec容器）
+
+            //  client接收时，接收到字符串str，先parse反序列化成json
+                //  然后一步步逆序拆解
+                //  取出每个js["xxx"]
+                    //  如果这个js["xxx"] 就是值 那么ok
+                    //  如果这个js["xxx"] 不是所需的值 比如是一个容器
+                        //  那么就取出容器的元素
+                            //  如果元素是str，由json.dump出来的，那么parse成json，然后取出一个个元素
+            vector<Group> groups = groupModel_.queryGroups(id);
+            vector<string> groups_list;
+            for(Group & g:groups)
+            {
+                //  group信息
+                json js;
+                js["group_id"] = g.getId();
+                js["group_name"] = g.getName();
+                js["group_desc"] = g.getDesc();
+                    //  存储所有group_user
+                vector<string> group_users;
+                for(GroupUser &gu:g.getUsers())
+                {
+                    json js;
+                    js["id"] = gu.getId();
+                    js["name"] = gu.getName();
+                    js["role"] = gu.getRole();
+                    group_users.push_back(js.dump());
+                }
+                js["group_users"] = group_users;
+
+                groups_list.push_back(js.dump());
+            }
+            res["groups"] = groups_list;                
+
             //  发送消息
             conn->send(res.dump());
-            
+
                 //  发送完了 删除离线信息
             OfflineMsgModel_.remove(id);
-            
         }
     }
     else
@@ -136,6 +178,7 @@ void ChatService::reg(const net::TcpConnectionPtr &conn, json &js, Timestamp tim
         json repo;
         repo["msg_id"] = REG_MSG_ACK;
         repo["errno"] = 1; //  1 注册失败
+        repo["errmsg"] = "server failed to insert data to database";
         conn->send(repo.dump());
     }
 }

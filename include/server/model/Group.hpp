@@ -19,10 +19,10 @@ public:
     void setName(string name) { group_name_ = name; }
     void setDesc(string desc) { group_desc_ = desc; }
 
-    int getId() { return group_id_; }
-    string getName() { return group_name_; }
-    string getDesc() { return group_desc_; }
-    vector<GroupUser>& getUsers() { return users; }
+    int getId() const { return group_id_; }
+    string getName() const { return group_name_; }
+    string getDesc() const { return group_desc_; }
+    vector<GroupUser> &getUsers() { return users; }
 
 private:
     int group_id_;

@@ -12,7 +12,7 @@ class GroupUser:public User
 {
 public:
     void setRole(string role){role_ = role;}
-    string getRole(){return role_;}
+    string getRole() const {return role_;}
 private:    
     string role_;
 };

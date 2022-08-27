@@ -86,7 +86,8 @@ vector<Group> GroupModel::queryGroups(int user_id)
                 gu.setId(atoi(row[0]));
                 gu.setName(row[1]);
                 gu.setState(row[2]);
-                gu.setState(row[3]);
+                gu.setRole(row[3]);
+                
                 g.getUsers().push_back(gu);
             }
             mysql_free_result(res); //  mysql_free_result 也可以封装进MySQLHandler
