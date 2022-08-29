@@ -9,7 +9,7 @@ bool GroupModel::createGroup(Group &group)
 {
     char sql[512];
     sprintf(sql,
-            "insert into allgroup values ('%s','%s')",
+            "insert into allgroup(groupname,groupdesc) values ('%s','%s')",
             group.getName().c_str(), group.getDesc().c_str());
 
     MySQLHandler mysql_handler;

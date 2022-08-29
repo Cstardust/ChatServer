@@ -44,11 +44,14 @@ void ChatServer::onMessage(const net::TcpConnectionPtr &conn,
 }
 
 
+//  在连接建立和断开时回调
 void ChatServer::onConnection(const net::TcpConnectionPtr &conn)
 {
     if(!conn->connected())
     {
-        ChatService::getInstance()->clientClose(conn);  //  移除关闭的连接
+        ChatService::getInstance()->clientCloseException(conn);  //  移除关闭的连接
         conn->shutdown();
     }
 }
+
+

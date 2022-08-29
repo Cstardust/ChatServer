@@ -40,14 +40,14 @@ public:
     //  创建群组业务
     void createGroup(const net::TcpConnectionPtr& , json &,Timestamp);
     //  加群组业务    
-    void addIntoGroup(const net::TcpConnectionPtr& , json &,Timestamp);
+    void addGroup(const net::TcpConnectionPtr& , json &,Timestamp);
     //  群组聊天业务
     void groupChat(const net::TcpConnectionPtr& , json &,Timestamp);    
-    //  处理客户端断开
-    void clientClose(const net::TcpConnectionPtr&);
+    //  处理客户端异常断开(client正常断开会发送id等信息（所以client正常断开的话Server可以获得一些信息，client异常断开就是直接ctrl+c断开了，所以异常断开server就只能获得一个conn连接信息（断开的连接）)
+    void clientCloseException(const net::TcpConnectionPtr&);
+    void clientLoginout(const net::TcpConnectionPtr& , json &,Timestamp);
     //  处理Server异常终止
     void reset();
-
 
 private:
     ChatService();

@@ -14,6 +14,10 @@ ChatService::ChatService()
     msgHandlerTable_.insert({MsgType::REG_MSG, std::bind(&ChatService::reg, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3)});
     msgHandlerTable_.insert({MsgType::PTOP_CHAT_MSG,std::bind(&ChatService::toPChat,this,std::placeholders::_1,std::placeholders::_2, std::placeholders::_3)});
     msgHandlerTable_.insert({MsgType::ADD_FRIEND_MSG,std::bind(&ChatService::addFriend,this,std::placeholders::_1,std::placeholders::_2, std::placeholders::_3)});
+    msgHandlerTable_.insert({MsgType::GROUP_CHAT_MSG,std::bind(&ChatService::groupChat,this,std::placeholders::_1,std::placeholders::_2, std::placeholders::_3)});
+    msgHandlerTable_.insert({MsgType::CREATE_GROUP_MSG,std::bind(&ChatService::createGroup,this,std::placeholders::_1,std::placeholders::_2, std::placeholders::_3)});
+    msgHandlerTable_.insert({MsgType::ADD_GROUP_MSG,std::bind(&ChatService::addGroup,this,std::placeholders::_1,std::placeholders::_2, std::placeholders::_3)});
+    msgHandlerTable_.insert({MsgType::LOGINOUT_MSG,std::bind(&ChatService::clientLoginout,this,std::placeholders::_1,std::placeholders::_2, std::placeholders::_3)});
 }
 
 MsgHandler ChatService::getMsgHandler(const MsgType &msg_type) const
@@ -148,6 +152,7 @@ void ChatService::login(const net::TcpConnectionPtr &conn, json &js, Timestamp t
         res["msg_id"] = LGOIN_MSG_ACK;
         res["errno"] = 2;
         res["id"] = user.getId();
+        res["errmsg"] = "password is wrong or user doesn't exist or Server internal error";
         conn->send(res.dump());
     }
 }
@@ -183,7 +188,7 @@ void ChatService::reg(const net::TcpConnectionPtr &conn, json &js, Timestamp tim
     }
 }
 
-void ChatService::clientClose(const net::TcpConnectionPtr &conn)
+void ChatService::clientCloseException(const net::TcpConnectionPtr &conn)
 {
     //  断开客户处理
     //  1. 从table中删除TcpConnectionPtr 和 id
@@ -215,9 +220,29 @@ void ChatService::clientClose(const net::TcpConnectionPtr &conn)
     return;
 }
 
+//  client正常退出 不用遍历userConntable_ 
+void ChatService::clientLoginout(const net::TcpConnectionPtr &conn, json &js, Timestamp time)
+{
+    int id = js["id"].get<int>();
+    //  移除连接记录
+    {
+        std::lock_guard<std::mutex> lock(connMtx_);
+        unordered_map<int,net::TcpConnectionPtr>::iterator iter = userConnTable_.find(id);    
+        if(iter!=userConnTable_.end())
+        {
+            userConnTable_.erase(id);
+        }
+    }
+    //  更新user状态
+    User user(id,"","","offline");
+    userModel_.upState(user);
+}
+
+
 void ChatService::toPChat(const net::TcpConnectionPtr &conn, json &js, Timestamp time)
 {
     js["msg_id"] = PTOP_CHAT_MSG_ACK;    //  server添加的ack
+    js["time"] = time.toFormattedString();            
     int to_id = js["to_id"].get<int>();
 
     //  根据id寻找conn来判断是否在线
@@ -232,7 +257,7 @@ void ChatService::toPChat(const net::TcpConnectionPtr &conn, json &js, Timestamp
         {
             //  对方在线 直接转发
             //  转发动作放在锁里面的原因
-                //  若放在外面 则可能pToPChat释放锁之后,其他线程又执行了clientClose，发送消息的用户可能就下线了 无法转发。
+                //  若放在外面 则可能pToPChat释放锁之后,其他线程又执行了clientCloseException，发送消息的用户可能就下线了 无法转发。
             iter->second->send(js.dump());
             return;
         }
@@ -243,6 +268,8 @@ void ChatService::toPChat(const net::TcpConnectionPtr &conn, json &js, Timestamp
 }
 
 
+//  服务器终止
+//      重置user表中的所有在线状态
 void ChatService::reset()
 {
     userModel_.resetState();
@@ -276,10 +303,10 @@ void ChatService::createGroup(const net::TcpConnectionPtr& conn, json & js,Times
 
 
 //  加入群组业务 -》addIntoModel
-void ChatService::addIntoGroup(const net::TcpConnectionPtr& conn, json & js,Timestamp time)
+void ChatService::addGroup(const net::TcpConnectionPtr& conn, json & js,Timestamp time)
 {
     int user_id = js["id"].get<int>();
-    int group_id = js["groupid"].get<int>();
+    int group_id = js["group_id"].get<int>();
     groupModel_.addIntoGroup(user_id,group_id,"normal");
 }
 
@@ -287,8 +314,10 @@ void ChatService::addIntoGroup(const net::TcpConnectionPtr& conn, json & js,Time
 //  群组聊天业务
 void ChatService::groupChat(const net::TcpConnectionPtr& conn, json & js,Timestamp time)
 {
+    js["msg_id"] = GROUP_CHAT_MSG_ACK;
+    js["time"] = time.toFormattedString();            
     int user_id = js["id"].get<int>();
-    int group_id = js["groupid"].get<int>();
+    int group_id = js["group_id"].get<int>();
     //  根据user_id group_id 得到应转发的所有用户
     vector<int> users = groupModel_.queryGroupUsers(user_id,group_id);
     
@@ -297,7 +326,7 @@ void ChatService::groupChat(const net::TcpConnectionPtr& conn, json & js,Timesta
     for(auto id : users)
     {
         unordered_map<int,net::TcpConnectionPtr> ::const_iterator iter = userConnTable_.find(id);
-        if(iter==userConnTable_.end())
+        if(iter!=userConnTable_.end())
         {
             //  转发群消息
             iter->second->send(js.dump());

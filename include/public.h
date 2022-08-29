@@ -8,6 +8,8 @@ enum MsgType{
     LGOIN_MSG_ACK,
     REG_MSG,            //  注册
     REG_MSG_ACK,
+    LOGINOUT_MSG,       //  登出
+    LOGINOUT_MSG_ACK,
     PTOP_CHAT_MSG,           //  peer to peer chat
     PTOP_CHAT_MSG_ACK,
     ADD_FRIEND_MSG,     //  加好友
