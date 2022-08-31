@@ -13,7 +13,7 @@
 #include"OfflineMessageModel.h"
 #include"FriendModel.h"
 #include"GroupModel.h"
-
+#include"redis.h"
 using namespace muduo;
 using json = nlohmann::json;
 using std::unordered_map;
@@ -49,6 +49,9 @@ public:
     //  处理Server异常终止
     void reset();
 
+    //  redis实现跨服务器通信 回调函数
+    void handlRedisSubscribeMessage(int ,string );
+
 private:
     ChatService();
 private:
@@ -69,6 +72,8 @@ private:
         FriendModel FriendModel_;
         //  群组关系表s
         GroupModel groupModel_;
+
+    Redis redis_;    
 };
 
 #endif

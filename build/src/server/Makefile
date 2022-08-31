@@ -341,6 +341,33 @@ model/UserModel.cpp.s:
 	cd /home/shc/ChatServer/build && $(MAKE) -f src/server/CMakeFiles/ChatServer.dir/build.make src/server/CMakeFiles/ChatServer.dir/model/UserModel.cpp.s
 .PHONY : model/UserModel.cpp.s
 
+redis/redis.o: redis/redis.cpp.o
+
+.PHONY : redis/redis.o
+
+# target to build an object file
+redis/redis.cpp.o:
+	cd /home/shc/ChatServer/build && $(MAKE) -f src/server/CMakeFiles/ChatServer.dir/build.make src/server/CMakeFiles/ChatServer.dir/redis/redis.cpp.o
+.PHONY : redis/redis.cpp.o
+
+redis/redis.i: redis/redis.cpp.i
+
+.PHONY : redis/redis.i
+
+# target to preprocess a source file
+redis/redis.cpp.i:
+	cd /home/shc/ChatServer/build && $(MAKE) -f src/server/CMakeFiles/ChatServer.dir/build.make src/server/CMakeFiles/ChatServer.dir/redis/redis.cpp.i
+.PHONY : redis/redis.cpp.i
+
+redis/redis.s: redis/redis.cpp.s
+
+.PHONY : redis/redis.s
+
+# target to generate assembly for a file
+redis/redis.cpp.s:
+	cd /home/shc/ChatServer/build && $(MAKE) -f src/server/CMakeFiles/ChatServer.dir/build.make src/server/CMakeFiles/ChatServer.dir/redis/redis.cpp.s
+.PHONY : redis/redis.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -374,6 +401,9 @@ help:
 	@echo "... model/UserModel.o"
 	@echo "... model/UserModel.i"
 	@echo "... model/UserModel.s"
+	@echo "... redis/redis.o"
+	@echo "... redis/redis.i"
+	@echo "... redis/redis.s"
 .PHONY : help
 
 

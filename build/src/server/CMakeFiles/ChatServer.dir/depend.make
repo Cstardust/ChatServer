@@ -11,6 +11,7 @@ src/server/CMakeFiles/ChatServer.dir/ChatServer.cpp.o: ../include/server/model/G
 src/server/CMakeFiles/ChatServer.dir/ChatServer.cpp.o: ../include/server/model/OfflineMessageModel.h
 src/server/CMakeFiles/ChatServer.dir/ChatServer.cpp.o: ../include/server/model/User.hpp
 src/server/CMakeFiles/ChatServer.dir/ChatServer.cpp.o: ../include/server/model/UserModel.h
+src/server/CMakeFiles/ChatServer.dir/ChatServer.cpp.o: ../include/server/redis/redis.h
 src/server/CMakeFiles/ChatServer.dir/ChatServer.cpp.o: ../thirdparty/json.hpp
 src/server/CMakeFiles/ChatServer.dir/ChatServer.cpp.o: ../src/server/ChatServer.cpp
 
@@ -23,6 +24,7 @@ src/server/CMakeFiles/ChatServer.dir/ChatService.cpp.o: ../include/server/model/
 src/server/CMakeFiles/ChatServer.dir/ChatService.cpp.o: ../include/server/model/OfflineMessageModel.h
 src/server/CMakeFiles/ChatServer.dir/ChatService.cpp.o: ../include/server/model/User.hpp
 src/server/CMakeFiles/ChatServer.dir/ChatService.cpp.o: ../include/server/model/UserModel.h
+src/server/CMakeFiles/ChatServer.dir/ChatService.cpp.o: ../include/server/redis/redis.h
 src/server/CMakeFiles/ChatServer.dir/ChatService.cpp.o: ../thirdparty/json.hpp
 src/server/CMakeFiles/ChatServer.dir/ChatService.cpp.o: ../src/server/ChatService.cpp
 
@@ -39,6 +41,7 @@ src/server/CMakeFiles/ChatServer.dir/main.cpp.o: ../include/server/model/GroupUs
 src/server/CMakeFiles/ChatServer.dir/main.cpp.o: ../include/server/model/OfflineMessageModel.h
 src/server/CMakeFiles/ChatServer.dir/main.cpp.o: ../include/server/model/User.hpp
 src/server/CMakeFiles/ChatServer.dir/main.cpp.o: ../include/server/model/UserModel.h
+src/server/CMakeFiles/ChatServer.dir/main.cpp.o: ../include/server/redis/redis.h
 src/server/CMakeFiles/ChatServer.dir/main.cpp.o: ../thirdparty/json.hpp
 src/server/CMakeFiles/ChatServer.dir/main.cpp.o: ../src/server/main.cpp
 
@@ -62,4 +65,7 @@ src/server/CMakeFiles/ChatServer.dir/model/UserModel.cpp.o: ../include/server/db
 src/server/CMakeFiles/ChatServer.dir/model/UserModel.cpp.o: ../include/server/model/User.hpp
 src/server/CMakeFiles/ChatServer.dir/model/UserModel.cpp.o: ../include/server/model/UserModel.h
 src/server/CMakeFiles/ChatServer.dir/model/UserModel.cpp.o: ../src/server/model/UserModel.cpp
+
+src/server/CMakeFiles/ChatServer.dir/redis/redis.cpp.o: ../include/server/redis/redis.h
+src/server/CMakeFiles/ChatServer.dir/redis/redis.cpp.o: ../src/server/redis/redis.cpp
 

@@ -1,3 +1,8 @@
+//  client connect to Load Balancer based on nginx (负载均衡器) port is 8000
+//  Load Balancer distribute connections to ChatServer (负载均衡器将连接分发给ChatServer)
+//  负载均衡器负责的ChatServer的port是6666,6667
+//  ChatServer连接Redis(作为Message Queue) 通过发布请阅机制进行跨服务器通信 (我觉得也是一种保持信息一致性)
+//  Port of Redis is 6379
 #include <unistd.h>
 #include <pthread.h>
 #include <arpa/inet.h>
@@ -90,7 +95,7 @@ int main(int argc, char *argv[])
     {
         cout << "Usage : "
              << "ChatClient 127.0.0.1 "
-             << " 6666 " << endl;
+             << " 8000 " << endl;
         exit(1);
     }
     const char *ip = argv[1];

@@ -12,6 +12,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/shc/ChatServer/src/server/model/GroupModel.cpp" "/home/shc/ChatServer/build/src/server/CMakeFiles/ChatServer.dir/model/GroupModel.cpp.o"
   "/home/shc/ChatServer/src/server/model/OfflineMessageModel.cpp" "/home/shc/ChatServer/build/src/server/CMakeFiles/ChatServer.dir/model/OfflineMessageModel.cpp.o"
   "/home/shc/ChatServer/src/server/model/UserModel.cpp" "/home/shc/ChatServer/build/src/server/CMakeFiles/ChatServer.dir/model/UserModel.cpp.o"
+  "/home/shc/ChatServer/src/server/redis/redis.cpp" "/home/shc/ChatServer/build/src/server/CMakeFiles/ChatServer.dir/redis/redis.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -22,6 +23,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/include/client"
   "../include/server/db"
   "../include/server/model"
+  "../include/server/redis"
   "../thirdparty"
   )
 

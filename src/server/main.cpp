@@ -14,13 +14,19 @@ void sigIntHandelr(int sig)     //  ctrl + c SIG_INT
 }
 
 
-int main()
+int main(int argc,char *argv[])
 {
+
+    if(argc!=3){
+        printf("Usage : ./ChatServer 127.0.0.1 port\n");
+        exit(0);
+    }
+
     //  捕捉信号
     signal(SIGINT,sigIntHandelr);
 
     net::EventLoop loop;
-    net::InetAddress addr("127.0.0.1",6666);
+    net::InetAddress addr(argv[1],atoi(argv[2]));
     ChatServer server(&loop,addr,"MyChatServer");
 
 

@@ -45,6 +45,8 @@ FriendModel.h
 ../include/server/FriendModel.h
 GroupModel.h
 ../include/server/GroupModel.h
+redis.h
+../include/server/redis.h
 
 ../include/server/db/DB.h
 mysql/mysql.h
@@ -93,6 +95,18 @@ string
 ../include/server/model/UserModel.h
 User.hpp
 ../include/server/model/User.hpp
+
+../include/server/redis/redis.h
+hiredis/hiredis.h
+-
+thread
+-
+functional
+-
+string
+-
+iostream
+-
 
 ../thirdparty/json.hpp
 algorithm
@@ -477,4 +491,10 @@ DB.h
 /home/shc/ChatServer/src/server/model/DB.h
 iostream
 -
+
+/home/shc/ChatServer/src/server/redis/redis.cpp
+iostream
+-
+redis.h
+/home/shc/ChatServer/src/server/redis/redis.h
 
